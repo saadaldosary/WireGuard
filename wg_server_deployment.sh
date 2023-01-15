@@ -10,7 +10,7 @@ PrivateKey=$private
 Address= <your private network ip>
 SaveConfig=true
 PostUp=iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o $pub_i  -j MASQUERADE;
-PostUp=iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o $pub_i  -j MASQUERADE;
+PostDown=iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o $pub_i  -j MASQUERADE;
 ListenPort = 51820
 """ > /etc/wireguard/wg0.conf
 # Start WireGuard
