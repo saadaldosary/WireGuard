@@ -4,7 +4,17 @@
 pub_i=$(ip -br l | awk '$1 !~ "lo|vir|wl" { print $1}')
 wg genkey | tee privatekey | wg pubkey > publickey
 private=$(cat privatekey)
- 
+
+# Setting endpoint ip 
+echo "Enter your ENDPOINT IP:Port e.g. 192.168.1.1:51820 "
+echo
+read endpoint_ip
+
+# Assigning Wireguard public key
+echo "Enter WireGuard public key: "
+echo
+read wgs_pubkey
+
 echo """[Interface]
 PrivateKey=$private
 
@@ -14,10 +24,10 @@ SaveConfig=true
 
 [Peer]
 
-PublicKey= <Wireguard Server public key >
+PublicKey= $wgs_pubkey
 
 # Wireguard server:Wireguard Port 
-EndPoint=192.168.126.128:51820
+EndPoint= $endpoint_ip
 
 # configure all traffic to go through the vpn or half tunnel 
 AllowedIPs=0.0.0.0/0 """ > /etc/wireguard/wg0.conf
