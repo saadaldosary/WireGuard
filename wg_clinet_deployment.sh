@@ -7,23 +7,24 @@ private=$(cat privatekey)
 
 # Setting endpoint ip 
 echo "Enter your ENDPOINT IP:Port e.g. 192.168.1.1:51820 "
-echo
 read endpoint_ip
 
 # Assigning Wireguard public key
 echo "Enter WireGuard public key: "
-echo
 read wgs_pubkey
+
+# Assigning Private IP 
+echo "Enter your assign private ip"
+read client_ip 
 
 echo """[Interface]
 PrivateKey=$private
 
 # Client Private network ip 
-Address=Client
+Address= $client_ip
 SaveConfig=true
 
 [Peer]
-
 PublicKey= $wgs_pubkey
 
 # Wireguard server:Wireguard Port 
